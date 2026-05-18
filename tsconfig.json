@@ -8,7 +8,7 @@
     "dist"
   ],
   "compilerOptions": {
-    "jsx": true,
+    "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
 }
