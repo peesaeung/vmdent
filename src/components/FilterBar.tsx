@@ -18,20 +18,25 @@ const FilterBar: React.FC<Props> = ({
   onSortByChange,
 }) => {
   return (
-    <div className="filter-bar">
-      <div className="filter-group">
-        <label>Search</label>
+    <div className="flex flex-wrap gap-6 mb-8 bg-slate-100 p-4 rounded-lg max-sm:flex-col max-sm:gap-4">
+      <div className="flex flex-col gap-1 flex-1 min-w-[200px]">
+        <label className="text-sm font-semibold text-slate-600">Search</label>
         <input 
           type="text" 
           placeholder="Search by name..." 
+          className="p-2 border border-slate-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
         />
       </div>
       
-      <div className="filter-group">
-        <label>Status</label>
-        <select value={statusFilter} onChange={(e) => onStatusFilterChange(e.target.value)}>
+      <div className="flex flex-col gap-1 flex-1 min-w-[200px]">
+        <label className="text-sm font-semibold text-slate-600">Status</label>
+        <select 
+          className="p-2 border border-slate-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          value={statusFilter} 
+          onChange={(e) => onStatusFilterChange(e.target.value)}
+        >
           <option value="All">All Statuses</option>
           <option value="Applied">Applied</option>
           <option value="Interview">Interview</option>
@@ -40,43 +45,17 @@ const FilterBar: React.FC<Props> = ({
         </select>
       </div>
 
-      <div className="filter-group">
-        <label>Sort By</label>
-        <select value={sortBy} onChange={(e) => onSortByChange(e.target.value as any)}>
+      <div className="flex flex-col gap-1 flex-1 min-w-[200px]">
+        <label className="text-sm font-semibold text-slate-600">Sort By</label>
+        <select 
+          className="p-2 border border-slate-300 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          value={sortBy} 
+          onChange={(e) => onSortByChange(e.target.value as any)}
+        >
           <option value="latest">Latest Created</option>
           <option value="oldest">Oldest Created</option>
         </select>
       </div>
-
-      <style jsx>{`
-        .filter-bar {
-          display: flex;
-          gap: 1.5rem;
-          margin-bottom: 2rem;
-          background: #f3f4f6;
-          padding: 1rem;
-          border-radius: 0.5rem;
-          flex-wrap: wrap;
-        }
-        .filter-group {
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-          flex: 1;
-          min-width: 200px;
-        }
-        label {
-          font-size: 0.875rem;
-          font-weight: 600;
-          color: #4b5563;
-        }
-        input, select {
-          padding: 0.5rem;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          font-size: 1rem;
-        }
-      `}</style>
     </div>
   );
 };

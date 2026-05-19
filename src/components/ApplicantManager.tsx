@@ -4,7 +4,7 @@ import { applicantService } from '../services/api';
 import ApplicantTable from './ApplicantTable';
 import ApplicantForm from './ApplicantForm';
 import FilterBar from './FilterBar';
-import type { Applicant, ApplicantStatus } from '../types/applicant';
+import type { Applicant } from '../types/applicant';
 
 const ApplicantManager: React.FC = () => {
   const {
@@ -76,10 +76,15 @@ const ApplicantManager: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <header>
-        <h1>Job Applicant Management</h1>
-        <button className="btn btn-primary" onClick={handleCreate}>+ Add Applicant</button>
+    <div className="max-w-[1000px] mx-auto p-8 max-sm:p-4">
+      <header className="flex justify-between items-center mb-8">
+        <h1 className="text-2xl font-bold text-slate-800">Job Applicant Management</h1>
+        <button 
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium transition-colors"
+          onClick={handleCreate}
+        >
+          + Add Applicant
+        </button>
       </header>
 
       <FilterBar 
@@ -91,10 +96,16 @@ const ApplicantManager: React.FC = () => {
         onSortByChange={setSortBy}
       />
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && (
+        <div className="bg-red-100 text-red-700 p-4 rounded-lg mb-4">
+          {error}
+        </div>
+      )}
 
       {loading ? (
-        <div className="loading">Loading applicants...</div>
+        <div className="text-center py-12 text-xl text-slate-500">
+          Loading applicants...
+        </div>
       ) : (
         <>
           <ApplicantTable 
@@ -103,15 +114,17 @@ const ApplicantManager: React.FC = () => {
             onDelete={handleDelete} 
           />
           
-          <div className="pagination">
+          <div className="flex justify-center items-center gap-4 mt-8">
             <button 
+              className="px-4 py-2 bg-slate-200 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-300 transition-colors"
               disabled={currentPage === 1} 
               onClick={() => setCurrentPage(prev => prev - 1)}
             >
               Previous
             </button>
-            <span>Page {currentPage} of {totalPages || 1}</span>
+            <span className="font-medium">Page {currentPage} of {totalPages || 1}</span>
             <button 
+              className="px-4 py-2 bg-slate-200 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-300 transition-colors"
               disabled={currentPage === totalPages || totalPages === 0} 
               onClick={() => setCurrentPage(prev => prev + 1)}
             >
@@ -129,54 +142,6 @@ const ApplicantManager: React.FC = () => {
           loading={actionLoading}
         />
       )}
-
-      <style jsx>{`
-        .container {
-          max-width: 1000px;
-          margin: 0 auto;
-          padding: 2rem;
-        }
-        header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-        }
-        .loading {
-          text-align: center;
-          padding: 3rem;
-          font-size: 1.2rem;
-          color: #666;
-        }
-        .pagination {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 1rem;
-          margin-top: 2rem;
-        }
-        .alert-error {
-          background: #fee2e2;
-          color: #dc2626;
-          padding: 1rem;
-          border-radius: 0.5rem;
-          margin-bottom: 1rem;
-        }
-        .btn {
-          padding: 0.5rem 1rem;
-          border-radius: 0.375rem;
-          cursor: pointer;
-          font-weight: 500;
-          border: none;
-        }
-        .btn-primary {
-          background: #2563eb;
-          color: white;
-        }
-        .btn-primary:hover {
-          background: #1d4ed8;
-        }
-      `}</style>
     </div>
   );
 };

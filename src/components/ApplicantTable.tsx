@@ -9,41 +9,58 @@ interface Props {
 
 const ApplicantTable: React.FC<Props> = ({ applicants, onEdit, onDelete }) => {
   return (
-    <div className="table-responsive">
-      <table className="applicant-table">
+    <div className="overflow-x-auto bg-white rounded-lg shadow-sm border border-slate-200">
+      <table className="w-full border-collapse text-left">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Position</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th>Actions</th>
+          <tr className="bg-slate-50">
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Name</th>
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Email</th>
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Phone</th>
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Position</th>
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Status</th>
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Created At</th>
+            <th className="p-4 font-semibold text-slate-700 border-b border-slate-200">Actions</th>
           </tr>
         </thead>
         <tbody>
           {applicants.length === 0 ? (
             <tr>
-              <td colSpan={7} style={{ textAlign: 'center', padding: '2rem' }}>No applicants found.</td>
+              <td colSpan={7} className="p-8 text-center text-slate-500">No applicants found.</td>
             </tr>
           ) : (
             applicants.map((a) => (
-              <tr key={a.id}>
-                <td>{a.name}</td>
-                <td>{a.email}</td>
-                <td>{a.phone}</td>
-                <td>{a.position}</td>
-                <td>
-                  <span className={`status-badge status-${a.status.toLowerCase()}`}>
+              <tr key={a.id} className="hover:bg-slate-50 transition-colors">
+                <td className="p-4 border-b border-slate-100">{a.name}</td>
+                <td className="p-4 border-b border-slate-100">{a.email}</td>
+                <td className="p-4 border-b border-slate-100">{a.phone}</td>
+                <td className="p-4 border-b border-slate-100">{a.position}</td>
+                <td className="p-4 border-b border-slate-100">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    a.status === 'Applied' ? 'bg-sky-100 text-sky-700' :
+                    a.status === 'Interview' ? 'bg-amber-100 text-amber-700' :
+                    a.status === 'Passed' ? 'bg-emerald-100 text-emerald-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
                     {a.status}
                   </span>
                 </td>
-                <td>{new Date(a.created_at).toLocaleDateString()}</td>
-                <td>
-                  <div className="actions">
-                    <button className="btn-icon" onClick={() => onEdit(a)}>✏️</button>
-                    <button className="btn-icon btn-delete" onClick={() => onDelete(a.id)}>🗑️</button>
+                <td className="p-4 border-b border-slate-100">{new Date(a.created_at).toLocaleDateString()}</td>
+                <td className="p-4 border-b border-slate-100">
+                  <div className="flex gap-2">
+                    <button 
+                      className="p-1 hover:bg-slate-200 rounded transition-colors" 
+                      onClick={() => onEdit(a)}
+                      title="Edit"
+                    >
+                      ✏️
+                    </button>
+                    <button 
+                      className="p-1 hover:bg-red-100 rounded transition-colors" 
+                      onClick={() => onDelete(a.id)}
+                      title="Delete"
+                    >
+                      🗑️
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -51,57 +68,6 @@ const ApplicantTable: React.FC<Props> = ({ applicants, onEdit, onDelete }) => {
           )}
         </tbody>
       </table>
-
-      <style jsx>{`
-        .table-responsive {
-          overflow-x: auto;
-          background: white;
-          border-radius: 0.5rem;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .applicant-table {
-          width: 100%;
-          border-collapse: collapse;
-          text-align: left;
-        }
-        th, td {
-          padding: 1rem;
-          border-bottom: 1px solid #e5e7eb;
-        }
-        th {
-          background: #f9fafb;
-          font-weight: 600;
-          color: #374151;
-        }
-        .status-badge {
-          padding: 0.25rem 0.75rem;
-          border-radius: 9999px;
-          font-size: 0.875rem;
-          font-weight: 500;
-        }
-        .status-applied { background: #e0f2fe; color: #0369a1; }
-        .status-interview { background: #fef3c7; color: #92400e; }
-        .status-passed { background: #dcfce7; color: #166534; }
-        .status-rejected { background: #fee2e2; color: #991b1b; }
-        .actions {
-          display: flex;
-          gap: 0.5rem;
-        }
-        .btn-icon {
-          background: none;
-          border: none;
-          cursor: pointer;
-          font-size: 1.2rem;
-          padding: 0.25rem;
-          border-radius: 0.25rem;
-        }
-        .btn-icon:hover {
-          background: #f3f4f6;
-        }
-        .btn-delete:hover {
-          background: #fee2e2;
-        }
-      `}</style>
     </div>
   );
 };

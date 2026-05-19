@@ -6,7 +6,7 @@
 - **Frontend:** Astro, React (TypeScript)
 - **Backend:** Google Apps Script (API)
 - **Database:** Google Sheets
-- **Styling:** Vanilla CSS (Responsive Design)
+- **Styling:** Tailwind CSS (Responsive Design)
 
 ## Features
 - [x] **Applicant List:** แสดงรายการผู้สมัคร พร้อมสถานะ
